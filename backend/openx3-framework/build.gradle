@@ -1,0 +1,40 @@
+// ==========================================
+// openx3-framework 模块配置
+// 技术底座层：Spring/MyBatis/Security 配置
+// ==========================================
+plugins {
+    id 'java-library'
+    id 'io.spring.dependency-management'
+}
+
+dependencies {
+    // 依赖 common 模块
+    api project(':openx3-common')
+    
+    // Spring Boot Web
+    api 'org.springframework.boot:spring-boot-starter-web'
+    api 'org.springframework.boot:spring-boot-starter-validation'
+    
+    // Spring Boot Data
+    // JPA (编译期可见)
+    compileOnly 'org.springframework.boot:spring-boot-starter-data-jpa'
+    api 'org.springframework.boot:spring-boot-starter-data-redis'
+    api 'org.springframework.boot:spring-boot-starter-jdbc'
+
+    // MyBatis Plus (编译期可见)
+    compileOnly "com.baomidou:mybatis-plus-spring-boot3-starter"
+
+    
+    // Sa-Token 权限认证
+    api "cn.dev33:sa-token-spring-boot3-starter"
+    api "cn.dev33:sa-token-redis-jackson"
+    
+    // PostgreSQL
+    runtimeOnly "org.postgresql:postgresql"
+    
+    // AOP (用于日志切面)
+    api 'org.springframework.boot:spring-boot-starter-aop'
+
+    // API 文档
+    api "com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter"
+}

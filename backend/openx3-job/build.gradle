@@ -1,0 +1,19 @@
+// ==========================================
+// openx3-job 模块配置
+// 任务层：基于 Quartz 的定时任务，支持脚本调度
+// ==========================================
+plugins {
+    id 'java-library'
+    id 'io.spring.dependency-management'
+}
+
+dependencies {
+    // 依赖其他模块
+    implementation project(':openx3-framework')
+    implementation project(':openx3-core')
+
+    // MyBatis Plus
+    implementation "com.baomidou:mybatis-plus-spring-boot3-starter"
+    // Quartz 定时任务
+    implementation 'org.springframework.boot:spring-boot-starter-quartz'
+}

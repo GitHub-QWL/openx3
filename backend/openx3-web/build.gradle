@@ -1,0 +1,36 @@
+// ==========================================
+// openx3-web 模块配置
+// 启动层：Controller, Config, Filter, Application.main
+// ==========================================
+plugins {
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+}
+
+dependencies {
+    // 依赖业务模块（聚合所有模块）
+    implementation project(':openx3-system')
+    implementation project(':openx3-core')
+    implementation project(':openx3-job')
+    implementation project(':openx3-framework')
+    
+    // Spring Boot Actuator (监控)
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+}
+
+// 1. 确保 processResources 能够解析 @变量名@
+processResources {
+    inputs.property('version', project.version)
+    filesMatching("**/application.yml") {
+        expand(project.properties)
+    }
+}
+
+bootJar {
+    manifest {
+        attributes(
+                'Implementation-Title': 'OpenX3 Web Application',
+                'Implementation-Version': project.version // ✅ 关键：把版本号打入 Jar
+        )
+    }
+}

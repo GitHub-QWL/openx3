@@ -1,0 +1,8 @@
+rootProject.name = 'openx3'
+
+include 'openx3-common'
+include 'openx3-framework'
+include 'openx3-system'
+include 'openx3-core'
+include 'openx3-job'
+include 'openx3-web'

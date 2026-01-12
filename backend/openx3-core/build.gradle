@@ -1,0 +1,23 @@
+// ==========================================
+// openx3-core 模块配置
+// 核心层：脚本引擎、通用DAO、元数据服务、缓存机制
+// ==========================================
+plugins {
+    id 'java-library'
+    id 'io.spring.dependency-management'
+}
+
+dependencies {
+    // 依赖 framework 模块（技术底座）
+    implementation project(':openx3-framework')
+
+
+    // Groovy 脚本引擎 (4.0+ 使用 org.apache.groovy)
+    implementation "org.apache.groovy:groovy"
+    implementation "org.apache.groovy:groovy-json"
+
+
+
+    // MyBatis Plus
+    implementation "com.baomidou:mybatis-plus-spring-boot3-starter"
+}

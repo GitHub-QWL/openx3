@@ -1,0 +1,21 @@
+// ==========================================
+// openx3-common 模块配置
+// 公共基础层：BaseEntity、统一响应、异常、工具类、常量
+// ==========================================
+plugins {
+    id 'java-library'
+    id 'io.spring.dependency-management'
+}
+
+dependencies {
+    // Jackson JSON 处理
+    api "com.fasterxml.jackson.core:jackson-databind"
+    api "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+    
+    // Hutool 工具库
+    api "cn.hutool:hutool-all"
+    
+    // Validation API
+    api 'jakarta.validation:jakarta.validation-api'
+
+}
