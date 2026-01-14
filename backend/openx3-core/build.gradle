@@ -20,4 +20,5 @@ dependencies {
 
     // MyBatis Plus
     implementation "com.baomidou:mybatis-plus-spring-boot3-starter"
+    implementation "com.baomidou:mybatis-plus-jsqlparser"
 }

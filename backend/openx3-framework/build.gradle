@@ -23,6 +23,7 @@ dependencies {
 
     // MyBatis Plus (编译期可见)
     compileOnly "com.baomidou:mybatis-plus-spring-boot3-starter"
+    compileOnly "com.baomidou:mybatis-plus-jsqlparser"
 
     
     // Sa-Token 权限认证
@@ -34,7 +35,4 @@ dependencies {
     
     // AOP (用于日志切面)
     api 'org.springframework.boot:spring-boot-starter-aop'
-
-    // API 文档
-    api "com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter"
 }

@@ -13,7 +13,7 @@ plugins {
 
     // Spring Boot 插件 (注意：apply false，根目录不打包)
     // ⚠️ 请确保这里的版本号与下方 ext.springBootVersion 保持一致
-    id 'org.springframework.boot' version '3.2.1' apply false
+    id 'org.springframework.boot' version '3.5.9' apply false
 
     // 依赖管理插件 (用于解析 BOM)
     id 'io.spring.dependency-management' version '1.1.7' apply false
@@ -39,8 +39,8 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
 
     java {
-        sourceCompatibility = '17'
-        targetCompatibility = '17'
+        sourceCompatibility = '21'
+        targetCompatibility = '21'
     }
 
     // 编译时让 annotationProcessor 继承 compileOnly 的路径 (为了 Lombok)
@@ -55,24 +55,19 @@ subprojects {
     // ==========================================
     ext {
         // 核心框架
-        springBootVersion = '3.2.1' // 必须与 plugins 块一致
+        springBootVersion = '3.5.9' // 必须与 plugins 块一致
 
         // 工具库
-        lombokVersion = '1.18.30'
-        hutoolVersion = '5.8.24'
+        lombokVersion = '1.18.36'
+        hutoolVersion = '5.8.35'
         jacksonVersion = '2.16.1'
 
         // 数据库与ORM
-        mybatisPlusVersion = '3.5.5' // 请确认支持 Spring Boot 3.x
-        postgresqlVersion = '42.7.1'
-        // mysqlVersion = '8.2.0' // 如果是用 MySQL 解开此注释
+        mybatisPlusVersion = '3.5.15' // 请确认支持 Spring Boot 3.x
 
         // 权限与脚本
-        saTokenVersion = '1.37.0'
-        groovyVersion = '4.0.16'
-
-        // API文档
-        knife4jVersion = '4.4.0'
+        saTokenVersion = '1.39.0'
+        groovyVersion = '4.0.24'
     }
 
     // ==========================================
@@ -84,6 +79,8 @@ subprojects {
             // [方案 B] 使用字符串插值引入 Spring Boot BOM
             // 优点：不依赖根项目是否应用了 SpringBoot 插件，逻辑解耦
             mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+            mavenBom "com.baomidou:mybatis-plus-bom:${mybatisPlusVersion}"
+
         }
 
     }
@@ -108,13 +105,11 @@ subprojects {
             implementation "cn.dev33:sa-token-redis-jackson:${saTokenVersion}"
 
             // 数据库驱动
-            implementation "org.postgresql:postgresql:${postgresqlVersion}"
+//            implementation "org.postgresql:postgresql:${postgresqlVersion}"
             // dependency "com.mysql:mysql-connector-j:${mysqlVersion}"
 
             // Groovy 脚本引擎
             implementation "org.apache.groovy:groovy:${groovyVersion}"
-            // API 文档
-            implementation "com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:${knife4jVersion}"
         }
 
         // Lombok (简化代码，必选)
@@ -126,13 +121,15 @@ subprojects {
     }
 
     // 编译设置：UTF-8 编码，防止中文注释乱码
-    tasks.withType(JavaCompile) {
+    tasks.withType(JavaCompile).configureEach {
         options.encoding = 'UTF-8'
         options.compilerArgs << "-parameters" // 保留参数名 (对 Mybatis/Jackson 友好)
     }
 
     // 测试设置：使用 JUnit 5 平台
-    tasks.withType(Test) {
-        useJUnitPlatform()
+    tasks.withType(Test).tap {
+        configureEach {
+            useJUnitPlatform()
+        }
     }
 }
