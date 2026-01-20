@@ -1,7 +1,8 @@
 package com.openx3.system.entity;
 
-import com.openx3.framework.jpa.entity.JpaBaseEntity;
-import jakarta.persistence.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.openx3.framework.mybatis.entity.MpBaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,31 +11,37 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Entity
-@Table(name = "sys_menu")
-public class SysMenu extends JpaBaseEntity {
-    
-    @Column(name = "parent_id", length = 32)
+@TableName("sys_menu")
+public class SysMenu extends MpBaseEntity {
+
     private String parentId;
-    
-    @Column(name = "name", nullable = false, length = 100)
-    private String name;
-    
-    @Column(name = "code", length = 50)
-    private String code;
-    
-    @Column(name = "path", length = 255)
+
+    /**
+     * 菜单名称（DB 字段：title）
+     */
+    private String title;
+
     private String path;
-    
-    @Column(name = "component", length = 255)
+
     private String component;
-    
-    @Column(name = "icon", length = 50)
+
+    /**
+     * 权限标识（如：sys:user:list）
+     */
+    private String perms;
+
     private String icon;
-    
-    @Column(name = "sort_order")
-    private Integer sortOrder;
-    
-    @Column(name = "status")
-    private Integer status;  // 0-禁用, 1-启用
+
+    /**
+     * 类型 (0=目录, 1=菜单, 2=按钮)
+     */
+    private Integer type;
+
+    @TableField("sort_no")
+    private Integer sortNo;
+
+    /**
+     * 是否显示
+     */
+    private Boolean visible;
 }

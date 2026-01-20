@@ -10,7 +10,7 @@ plugins {
 dependencies {
     // 依赖其他模块
     implementation project(':openx3-framework')
+
+    implementation project(':openx3-core')
     
-    // Spring Boot Data
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 }

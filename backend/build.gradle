@@ -62,6 +62,9 @@ subprojects {
         hutoolVersion = '5.8.35'
         jacksonVersion = '2.16.1'
 
+        // API 文档
+        springdocVersion = '2.8.15'
+
         // 数据库与ORM
         mybatisPlusVersion = '3.5.15' // 请确认支持 Spring Boot 3.x
 

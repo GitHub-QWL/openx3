@@ -16,9 +16,4 @@ dependencies {
     implementation "org.apache.groovy:groovy"
     implementation "org.apache.groovy:groovy-json"
 
-
-
-    // MyBatis Plus
-    implementation "com.baomidou:mybatis-plus-spring-boot3-starter"
-    implementation "com.baomidou:mybatis-plus-jsqlparser"
 }

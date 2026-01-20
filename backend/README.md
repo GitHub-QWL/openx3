@@ -47,8 +47,7 @@ openx3-root
 
 执行以下 SQL 脚本初始化数据库：
 
-- `src/main/resources/db/schema.sql` - 元数据表结构
-- `src/main/resources/db/system.sql` - 系统表结构
+- `src/main/resources/db/init.sql` - 元数据表结构
 
 ### 3. 配置修改
 
@@ -91,8 +90,11 @@ cd openx3-web
 
 ### 认证接口
 
-- `POST /api/auth/login` - 用户登录
-- `GET /api/auth/current` - 获取当前用户信息
+- `POST /api/auth/login` - 账号登录（返回可选员工列表，不签发 Token）
+- `POST /api/auth/select` - 选择员工身份并签发 Token（JWT，Header: Authorization: Bearer {token}）
+- `POST /api/auth/switch` - 切换员工身份并签发新 Token
+- `GET /api/auth/current` - 获取当前登录态信息（账号 + 员工上下文 + 角色/权限/菜单/数据范围）
+- `POST /api/auth/logout` - 退出登录（Token 加入 Redis 黑名单）
 
 ### 运行时接口
 

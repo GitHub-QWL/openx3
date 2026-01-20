@@ -1,5 +1,8 @@
 package com.openx3.framework.web;
 
+import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotPermissionException;
+import cn.dev33.satoken.exception.NotRoleException;
 import com.openx3.common.common.R;
 import com.openx3.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +32,26 @@ public class GlobalExceptionHandler {
     public R<?> handleBusinessException(BusinessException e) {
         log.warn("业务异常: {}", e.getMessage());
         return R.error(e.getCode(), e.getMessage());
+    }
+
+    /**
+     * 未登录/登录过期
+     */
+    @ExceptionHandler(NotLoginException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public R<?> handleNotLoginException(NotLoginException e) {
+        log.warn("未登录: {}", e.getMessage());
+        return R.error(401, "未登录或登录已过期");
+    }
+
+    /**
+     * 无权限访问
+     */
+    @ExceptionHandler({NotPermissionException.class, NotRoleException.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public R<?> handleNoPermissionException(Exception e) {
+        log.warn("无权限: {}", e.getMessage());
+        return R.error(403, "无权限访问");
     }
     
     /**

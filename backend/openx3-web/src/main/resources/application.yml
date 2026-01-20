@@ -6,9 +6,9 @@ spring:
   # 数据源配置
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/openx3?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:postgresql://localhost:5432/openx3?currentSchema=openx3&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
     username: qwl
-    password: 123
+    password: 123456
     hikari:
       pool-name: OpenX3-HikariCP
       minimum-idle: 5
@@ -91,3 +91,18 @@ management:
   endpoint:
     health:
       show-details: when-authorized
+
+# Sa-Token 配置（与文档保持一致：Authorization: Bearer {token}）
+sa-token:
+  token-name: Authorization
+  token-prefix: Bearer
+  is-read-header: true
+  is-read-cookie: false
+  token-style: jwt
+  # JWT 密钥（生产环境请用更长随机值并通过环境变量注入）
+  jwt-secret-key: openx3-dev-jwt-secret-key-change-me
+
+openx3:
+  security:
+    # 字段策略 ENCRYPT 使用的 AES 密钥（生产环境请用更长随机值并通过环境变量注入）
+    field-encrypt-key: openx3-dev-field-encrypt-key-change-me
