@@ -13,25 +13,24 @@ OpenX3 (Open Extensible Enterprise Engine) 是一个现代化的、能够替代�
   - 关系与文档的结合：SQL 处理核心关联，JSONB 处理无限扩展字段。
 
 ## 技术栈
-
 | 组件类别 | 选型 | 版本 |
 |---------|------|------|
-| 开发语言 | Java | 17+ (LTS) |
-| 应用框架 | Spring Boot | 3.2.x |
-| 脚本引擎 | Groovy | 4.0.x |
+| 开发语言 | Java | 21 (LTS) |
+| 应用框架 | Spring Boot | 3.5.x |
+| 脚本引擎 | Groovy | 4.x |
 | 数据库 | PostgreSQL | 15+ |
-| ORM | Spring Data JPA / MyBatis Plus | - |
-| 前端框架 | Baidu Amis | 3.6+ |
+| ORM | MyBatis-Plus / Spring Data JPA | - |
 | 中间件 | Redis | 7.x |
 
 ## 模块结构
-
 ```
 openx3-root
-├── openx3-api          # [公共层] DTO, Enums, Utils, Exceptions
-├── openx3-core         # [内核层] ScriptEngine, GenericDao, MetaService
-├── openx3-system       # [管理层] User, Role, Menu, Auth Service
-└── openx3-web          # [启动层] Controller, Config, Filter, Application.main
+├── openx3-common       # [通用层] 常量、异常、工具
+├── openx3-framework    # [技术底座] 配置、AOP、OpenAPI、Redis、MyBatis-Plus、全局异常
+├── openx3-system       # [系统管理] 用户/角色/权限/菜单/字典/租户等
+├── openx3-core         # [内核运行时] 元数据、通用DAO、脚本引擎、运行时控制器
+├── openx3-job          # [调度层] Quartz 定时任务
+└── openx3-web          # [启动层] 应用入口与资源
 ```
 
 ## 快速开始
@@ -44,29 +43,27 @@ openx3-root
 - Gradle 7.x+
 
 ### 2. 数据库初始化
-
 执行以下 SQL 脚本初始化数据库：
 
-- `src/main/resources/db/init.sql` - 元数据表结构
+- `backend/db/init.sql` - 元数据与基础表结构
+- `backend/db/init_data.sql` - 基础数据
 
 ### 3. 配置修改
 
 修改 `openx3-web/src/main/resources/application.yml` 中的数据库和 Redis 连接信息。
 
 ### 4. 启动项目
-
 ```bash
-# 使用 Gradle 启动
-cd openx3-web
-../gradlew bootRun
+# 后端根目录（backend）使用 Gradle 启动
+gradlew.bat :openx3-web:bootRun  # Windows
+./gradlew :openx3-web:bootRun    # Linux/MacOS
 
-# 或使用 IDE 直接运行
-# 启动类: com.openx3.web.Openx3WebApplication
+# 或使用 IDE 直接运行：启动类 com.openx3.web.Openx3WebApplication
 ```
 
 ### 5. 访问接口
-
-- API 文档: http://localhost:8080/api
+- OpenAPI 文档: http://localhost:8080/swagger-ui/index.html
+- OpenAPI JSON: http://localhost:8080/v3/api-docs
 - 健康检查: http://localhost:8080/actuator/health
 
 ## 核心功能
